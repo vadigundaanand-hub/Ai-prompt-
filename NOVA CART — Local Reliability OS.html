@@ -1,0 +1,133 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>NOVA CART — Local Reliability OS</title>
+<style>
+:root{--bg:#f3f5f2;--cd:#fff;--tx:#17201d;--mu:#5f6d68;--pr:#0b6b5e;--pl:#d8f0ea;--bd:#dce2de;--ok:#13763a;--okb:#dff3e6;--md:#8a5a00;--mdb:#fdf0d0;--bad:#b3300c;--badb:#fde4dc;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#101715;--cd:#18221f;--tx:#e8efec;--mu:#9aaaa4;--pr:#4fd1b8;--pl:#173a34;--bd:#2a3733;--ok:#5fd78a;--okb:#16341f;--md:#f3c15a;--mdb:#3a2e0e;--bad:#ff8a5c;--badb:#3d1f15}}
+:root[data-theme=dark]{--bg:#101715;--cd:#18221f;--tx:#e8efec;--mu:#9aaaa4;--pr:#4fd1b8;--pl:#173a34;--bd:#2a3733;--ok:#5fd78a;--okb:#16341f;--md:#f3c15a;--mdb:#3a2e0e;--bad:#ff8a5c;--badb:#3d1f15}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 "Trebuchet MS","Segoe UI",system-ui,sans-serif}
+header{display:flex;justify-content:space-between;align-items:center;gap:8px;max-width:1000px;margin:0 auto;padding:12px 14px 0;flex-wrap:wrap}
+h1{font:800 21px Georgia,serif;margin:0;color:var(--pr)}h1 small{font:600 13px "Trebuchet MS",sans-serif;color:var(--mu)}
+h2{font:700 18px Georgia,serif;margin:20px 0 8px}h3{margin:0;font-size:15px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:6px;overflow-x:auto;max-width:1000px;margin:0 auto;padding:10px 14px}
+main{max-width:1000px;margin:0 auto;padding:0 14px 70px}
+button,input,select{font:inherit;color:var(--tx)}button{cursor:pointer;background:var(--cd);border:1px solid var(--bd);border-radius:8px;padding:7px 11px}
+button.p,nav button.on{background:var(--pr);color:var(--bg);border-color:var(--pr);font-weight:700}nav button{border-radius:20px;white-space:nowrap}
+input,select{background:var(--cd);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;max-width:100%}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--pr);outline-offset:2px}
+.c{background:var(--cd);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;margin:8px 0}
+.r{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.mu{color:var(--mu);font-size:13px}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px}
+.k b{display:block;font:800 22px Georgia,serif}.k{background:var(--cd);border:1px solid var(--bd);border-radius:12px;padding:10px 12px}
+.tg{font-size:11px;font-weight:700;padding:2px 8px;border-radius:12px;white-space:nowrap}.ok{background:var(--okb);color:var(--ok)}.mid{background:var(--mdb);color:var(--md)}.bad{background:var(--badb);color:var(--bad)}
+.bar{height:7px;background:var(--bd);border-radius:5px;overflow:hidden;margin:5px 0}.bar i{display:block;height:100%}.bar .ok{background:var(--ok)}.bar .mid{background:var(--md)}.bar .bad{background:var(--bad)}
+.ch{display:flex;gap:6px;overflow-x:auto;padding:6px 0}.ch button{border-radius:20px;white-space:nowrap}
+.pop{border:2px solid var(--md);background:var(--mdb)}.st{display:flex;gap:4px;margin:8px 0}.st i{flex:1;height:6px;border-radius:4px;background:var(--bd)}.st i.d{background:var(--pr)}
+#t{position:fixed;bottom:calc(14px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:9px 14px;border-radius:20px;max-width:92%;z-index:9}
+table{border-collapse:collapse;width:100%;font-size:14px}td,th{border-bottom:1px solid var(--bd);padding:6px 4px;text-align:left}
+.pill{background:var(--pl);color:var(--pr);font-size:12px;font-weight:700;padding:3px 9px;border-radius:12px}
+</style></head><body>
+<header><h1>NOVA CART <small>Local Reliability OS</small></h1><span class="pill">Demo Mode · sample data <button onclick="reset()" style="padding:2px 8px;margin-left:6px">Reset</button></span></header>
+<nav id="nv"></nav><main id="app"></main><div id="t" hidden></div>
+<script>
+/* ===== DEMO DATA (replace with API calls later) ===== */
+const ST=[{n:'Sri Murugan Grocers',c:'Chennai',eta:22,rej:4},{n:'Anand Pharmacy',c:'Chennai',eta:24,rej:2},{n:'Fresh Crust Bakery',c:'Visakhapatnam',eta:26,rej:9},{n:'Paper Tree Stationers',c:'Visakhapatnam',eta:30,rej:3},{n:'Lakshmi Kirana',c:'Hyderabad',eta:38,rej:12},{n:'CityCare Pharmacy',c:'Hyderabad',eta:35,rej:6},{n:'Daily Needs Mart',c:'Chennai',eta:27,rej:5},{n:'Charminar Bakery',c:'Hyderabad',eta:28,rej:14}];
+const RAW=[['Amul Taaza Milk 1L','Grocery',64,0,99,2],['Aashirvaad Atta 5kg','Grocery',248,0,92,6],['Toor Dal 1kg','Grocery',152,6,58,52],['Assorted Biscuits','Grocery',120,4,61,20],['Paracetamol 15s','Pharmacy',32,1,95,3],['ORS Sachets x5','Pharmacy',55,1,78,20],['Digital Thermometer','Pharmacy',199,5,64,44],['Whole Wheat Bread','Bakery',45,2,88,10],['Plum Cake 400g','Bakery',220,7,52,60],['Gel Pens x10','Stationery',80,3,97,4],['A4 Notebooks x3','Stationery',150,3,81,18],['Herbal Shampoo 200ml','Personal Care',185,6,73,26],['Toothpaste 150g','Personal Care',92,0,94,5],['Kovilpatti Peanut Chikki','Local Specials',70,0,71,30],['Guntur Chilli Powder 250g','Local Specials',110,4,66,48],['Assorted Biscuits','Grocery',124,0,93,4],['Toor Dal 1kg','Grocery',156,0,90,6],['Plum Cake 400g','Bakery',230,2,89,8]];
+const P=RAW.map((r,i)=>({id:i,n:r[0],cat:r[1],p:r[2],s:r[3],c:r[4],h:r[5],q:Math.round(r[4]/6),u:0,sn:0}));
+const CU=['Aarav S.','Meera K.','Rohit V.','Priya N.','Karthik R.','Sana F.','Divya P.','Imran A.','Lakshmi T.','Vikram D.'],RF=['Meera K.','Imran A.'];
+const SEED=[[0,0,4],[1,2,1],[2,3,2],[3,4,4],[4,8,0],[5,6,3],[6,12,4],[7,5,1],[8,10,2],[9,13,0],[1,14,-1],[3,3,0],[0,7,3],[5,11,-1],[2,16,4]];
+const STG=['Confirmed','Store preparing','Picked up','Out for delivery','Delivered'];
+let S={tab:'cust',q:'',cat:'All',cart:[],pop:null,last:null,store:4,tasks:[],n:1846,
+orders:SEED.map((s,i)=>({id:'NC-'+(1830+i),cust:CU[s[0]],s:P[s[1]].s,items:[{pid:s[1],qty:1+i%2,flag:''}],stage:s[2]}))};
+const R=n=>'₹'+Math.round(n).toLocaleString('en-IN'),cl=(x,a=0,b=100)=>Math.max(a,Math.min(b,x));
+function save(){try{localStorage.setItem('nc-lro',JSON.stringify({P:P.map(p=>[p.c,p.h,p.u,p.q]),B:ST.map(s=>s.busy?1:0),o:S.orders,t:S.tasks,n:S.n}))}catch(e){}}
+(function(){try{const d=JSON.parse(localStorage.getItem('nc-lro'));if(d){d.P.forEach((v,i)=>{[P[i].c,P[i].h,P[i].u,P[i].q]=v});d.B.forEach((b,i)=>ST[i].busy=b);S.orders=d.o;S.tasks=d.t;S.n=d.n}}catch(e){}})();
+function reset(){try{localStorage.removeItem('nc-lro')}catch(e){}location.reload()}
+function toast(m){const t=document.getElementById('t');t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,3000)}
+
+/* ===== RELIABILITY ENGINE ===== */
+// Stock confidence = store-reported confidence minus a penalty when the last update is stale.
+function calculateStockConfidence(p){return p.u?0:cl(p.c-(p.h>48?6:p.h>24?3:0),5)}
+// >=90 high, 70-89 moderate, <70 risky
+function status(c){return c>=90?['HIGH CONFIDENCE','ok']:c>=70?['MODERATE CONFIDENCE','mid']:['RISKY STOCK','bad']}
+// Delivery risk from the store's usual ETA (+10 min when the store is in Busy Mode)
+function calculateDeliveryRisk(sid){const s=ST[sid],eta=s.eta+(s.busy?10:0);return{eta,level:eta>=35?'High':eta>=28?'Medium':'Low'}}
+// Weighted score: 60% stock, 25% ETA, 15% store rejection history
+function calculateReliabilityScore(c,eta,rej){return cl(Math.round(.6*c+.25*cl(100-(eta-15)*3)+.15*cl(100-rej*4)))}
+function minConf(o){return o.items.reduce((m,i)=>Math.min(m,calculateStockConfidence(P[i.pid])),100)}
+function calculateOrderRisk(o){const lo=minConf(o),d=calculateDeliveryRisk(o.s),rj=ST[o.s].rej,types=[];
+if(lo<70)types.push('Inventory risk');if(d.eta>=28)types.push('ETA risk');if(rj>=10)types.push('Store rejection risk');if(d.level=='High')types.push('Delivery partner risk');if(RF.includes(o.cust))types.push('Refund risk');
+const sc=calculateReliabilityScore(lo,d.eta,rj);return{lo,d,rj,types,sc,level:sc>=80&&lo>=70?'Low':sc>=62?'Medium':'High'}}
+// Another store carrying the same product with reliable stock
+function recommendStore(pid){const p=P[pid];return P.filter(x=>x.n==p.n&&x.s!=p.s&&!x.u&&calculateStockConfidence(x)>=70).sort((a,b)=>calculateStockConfidence(b)-calculateStockConfidence(a))[0]||null}
+// Deterministic "Smart Recommendation" with visible reasoning
+function recommend(o){const k=calculateOrderRisk(o),it=o.items.map(i=>P[i.pid]),bad=it.find(p=>p.u),alt=recommendStore(it[0].id);
+if(bad)return{a:'Item was reported unavailable. Reroute to '+(alt?ST[alt.s].n:'another store')+'.',w:bad.n+' was marked unavailable by the store.'};
+if(k.lo<70)return{a:'Inventory confidence is low. Ask the store to confirm before fulfillment.',w:'Lowest stock confidence is '+k.lo+'% (safe level is 70%). Product data is '+Math.max(...it.map(p=>p.h))+'h old.'};
+if(k.d.eta>=35)return{a:'Delivery ETA is likely to exceed the promised time. Consider rerouting.',w:'Expected ETA is '+k.d.eta+' min; orders above 35 min are the ones most often cancelled for delay.'};
+if(k.rj>=10)return{a:'The selected store has repeated rejection events. '+(alt?'Recommend '+ST[alt.s].n+'.':'Recommend an alternative nearby store.'),w:ST[o.s].n+' rejects '+k.rj+'% of orders.'};
+if(RF.includes(o.cust))return{a:'The customer has experienced a previous refund. Prioritize reliability.',w:'Prior refund on record for this customer.'};
+return{a:'No action needed.',w:'Stock, ETA and store history are all within safe limits.'}}
+function calculateRecoveredOrders(o,cur,tgt){return o*(cur-tgt)/100}
+function calculateRecoveredOrderValue(r,aov){return r*aov}
+
+/* ===== ACTIONS ===== */
+function updateInventoryConfidence(pid,c,h){const p=P[pid];p.c=c;p.h=h;p.u=0}
+function confirmInventory(pid){updateInventoryConfidence(pid,98,0);P[pid].q=Math.max(P[pid].q,6);S.tasks=S.tasks.filter(t=>t.pid!=pid);save();toast('Inventory confidence refreshed.');render()}
+function markUnavailable(pid){const p=P[pid];p.u=1;const hit=S.tasks.filter(t=>t.pid==pid);S.tasks=S.tasks.filter(t=>t.pid!=pid);hit.forEach(t=>rerouteOrder(t.oid,1));save();toast(p.n+' marked unavailable.');render()}
+function rerouteOrder(oid,quiet){const o=S.orders.find(o=>o.id==oid),m=o.items.map(i=>recommendStore(i.pid));if(m.some(x=>!x)){if(!quiet)toast('No other store has this item with reliable stock');return false}
+o.items=o.items.map((i,k)=>({...i,pid:m[k].id,flag:''}));o.s=m[0].s;S.tasks=S.tasks.filter(t=>t.oid!=oid);save();toast(oid+' rerouted to '+ST[o.s].n);if(!quiet)render();return true}
+function resolveRisk(oid){S.orders.find(o=>o.id==oid).res=1;S.tasks=S.tasks.filter(t=>t.oid!=oid);save();toast(oid+' marked resolved');render()}
+function addLine(pid,flag){let c=S.cart;if(c.length&&P[c[0].pid].s!=P[pid].s){toast('Basket moved to '+ST[P[pid].s].n+' (one store per order)');S.cart=c=[]}
+const l=c.find(x=>x.pid==pid);l?l.qty++:c.push({pid,qty:1,flag});S.pop=null;render()}
+function add(pid){const p=P[pid];if(p.u||paused(p))return toast('Not available right now');if(calculateStockConfidence(p)<70&&!S.cart.some(x=>x.pid==pid))S.pop=pid;else addLine(pid,'');render()}
+function riskPick(m){const pid=S.pop;if(m=='ask')addLine(pid,'ask');else if(m=='risk')addLine(pid,'risk');else{const a=recommendStore(pid);if(a){S.pop=null;addLine(a.id,'');toast('Switched to '+ST[a.s].n+' ('+calculateStockConfidence(a)+'% confidence)')}else toast('No other store has this item with reliable stock')}}
+function qty(pid,d){const l=S.cart.find(x=>x.pid==pid);l.qty+=d;if(l.qty<1)S.cart=S.cart.filter(x=>x!=l);render()}
+function paused(p){return ST[p.s].busy&&calculateStockConfidence(p)<70&&!p.u}
+function cartInfo(){const c=S.cart;if(!c.length)return null;const sub=c.reduce((a,l)=>a+P[l.pid].p*l.qty,0),s=P[c[0].pid].s,fee=sub>=299?0:25;
+const risky=c.filter(l=>calculateStockConfidence(P[l.pid])<70);return{sub,s,fee,tot:sub+fee,risky,d:calculateDeliveryRisk(s)}}
+function placeOrder(){const ci=cartInfo();if(!ci)return;const o={id:'NC-'+S.n++,cust:'You (Demo)',s:ci.s,items:S.cart.map(l=>({...l})),stage:0,live:1};
+o.items.forEach(i=>{if(calculateStockConfidence(P[i.pid])<70)S.tasks.push({oid:o.id,pid:i.pid})});S.orders.unshift(o);S.last=o.id;S.cart=[];save();toast('Order '+o.id+' placed');render()}
+setInterval(()=>{let ch=0;S.orders.forEach(o=>{if(o.live&&o.stage<4&&!S.tasks.some(t=>t.oid==o.id)){o.stage++;ch=1}});if(ch){save();if(S.last&&S.tab=='cust')render()}},4000);
+
+/* ===== VIEWS ===== */
+const conf=(c)=>{const s=status(c);return `<div class="bar"><i class="${s[1]}" style="width:${c}%"></i></div>`};
+function pcard(p){const c=calculateStockConfidence(p),s=status(c),d=calculateDeliveryRisk(p.s),off=p.u||paused(p);
+return `<div class="c"><div class="r"><h3>${p.n}</h3><b>${R(p.p)}</b></div><div class="mu">${ST[p.s].n} · ${ST[p.s].c} · ETA ${d.eta} min</div>${conf(c)}<div class="r"><span><b>${c}%</b> stock confidence <span class="tg ${s[1]}">${p.u?'UNAVAILABLE':paused(p)?'PAUSED (BUSY)':s[0]}</span></span><button class="p" ${off?'disabled':''} onclick="add(${p.id})">Add</button></div>${c<70&&!off?'<div class="mu">Inventory confirmation recommended</div>':''}</div>`}
+function cust(){const cats=['All','Grocery','Pharmacy','Bakery','Stationery','Personal Care','Local Specials'],q=S.q.toLowerCase();
+const L=P.filter(p=>(S.cat=='All'||p.cat==S.cat)&&p.n.toLowerCase().includes(q)).sort((a,b)=>calculateStockConfidence(b)-calculateStockConfidence(a));
+let h=`<details class="c" ${S.last?'':'open'}><summary><b>2-minute demo journey</b></summary><ol class="mu"><li>Search "biscuit" (button below)</li><li>See the 61% RISKY STOCK badge</li><li>Add it: the engine asks you to resolve the risk</li><li>Choose "Ask store to confirm", then check the cart's reliability check</li><li>Place order, then open Store: confirm stock</li><li>Open Operations to see the risk queue</li><li>Open Impact for the business value</li></ol><button class="p" onclick="S.q='biscuit';S.cat='All';render()">Search "biscuit"</button></details>
+<h2>Find local products</h2><input id="sq" placeholder="Search milk, biscuit, pens…" value="${S.q}" oninput="S.q=this.value;render();const e=document.getElementById('sq');e.focus();e.setSelectionRange(99,99)" style="width:100%"><div class="ch">${cats.map(c=>`<button class="${S.cat==c?'p':''}" onclick="S.cat='${c}';render()">${c}</button>`).join('')}</div>`;
+if(S.pop!=null){const p=P[S.pop],a=recommendStore(S.pop);h+=`<div class="c pop"><h3>Inventory confirmation recommended</h3><div class="mu">${p.n} has only ${calculateStockConfidence(p)}% stock confidence at ${ST[p.s].n}. Orders like this are often cancelled.</div><div class="r" style="margin-top:8px;justify-content:flex-start"><button class="p" onclick="riskPick('ask')">Ask store to confirm</button><button onclick="riskPick('other')">Choose another store${a?' ('+ST[a.s].n+')':''}</button><button onclick="riskPick('risk')">Continue with risk</button><button onclick="S.pop=null;render()">Cancel</button></div></div>`}
+h+=`<div class="g2">${L.length?L.map(pcard).join(''):'<div class="c mu">No products match. Try another word or category.</div>'}</div>`+cart();
+if(S.last)h+=trackCard(S.orders.find(o=>o.id==S.last));return h}
+function cart(){const ci=cartInfo();if(!ci)return '<h2>Cart</h2><div class="c mu">Your cart is empty.</div>';
+const rows=S.cart.map(l=>{const p=P[l.pid],c=calculateStockConfidence(p),s=status(c);return `<div class="c"><div class="r"><div><b>${p.n}</b> <span class="tg ${s[1]}">${c}%</span><div class="mu">${R(p.p)} each${l.flag=='ask'?' · store confirmation requested':l.flag=='risk'?' · continuing with risk':''}</div></div><span><button onclick="qty(${p.id},-1)">−</button> <b>${l.qty}</b> <button onclick="qty(${p.id},1)">+</button></span></div></div>`}).join('');
+const ok=!ci.risky.length;return `<h2>Cart · ${ST[ci.s].n}</h2>${rows}<div class="c"><div class="r"><span>Items</span><span>${R(ci.sub)}</span></div><div class="r"><span>Delivery fee</span><span>${ci.fee?R(ci.fee):'FREE'}</span></div><div class="r"><b>Total</b><b>${R(ci.tot)}</b></div><div class="mu">ETA ${ci.d.eta} min · ETA confidence: ${ci.d.level=='Low'?'High':ci.d.level=='Medium'?'Moderate':'Low'}</div>
+<div class="c ${ok?'':'pop'}"><b>Reliability check</b><div>${ok?'Your order has passed the reliability check.':ci.risky.length+' item'+(ci.risky.length>1?'s require':' requires')+' store confirmation before fulfillment.'}</div></div><button class="p" style="width:100%" onclick="placeOrder()">Place order · ${R(ci.tot)}</button></div>`}
+function trackCard(o){const k=calculateOrderRisk(o),pend=S.tasks.filter(t=>t.oid==o.id);
+return `<h2>Your order ${o.id}</h2><div class="c"><div class="r"><b>${ST[o.s].n}</b><span class="tg ${k.level=='Low'?'ok':k.level=='Medium'?'mid':'bad'}">Reliability ${k.sc}/100 · ${k.level} risk</span></div><div class="mu">${o.items.map(i=>P[i.pid].n+' x'+i.qty).join(', ')} · ETA ${k.d.eta} min</div><div class="st">${STG.map((s,i)=>`<i class="${i<=o.stage?'d':''}"></i>`).join('')}</div><b>${STG[o.stage]}</b>${pend.length?`<div class="mu">Waiting for the store to confirm ${pend.map(t=>P[t.pid].n).join(', ')}. <button onclick="S.tab='store';S.store=${o.s};render()">Open store console</button></div>`:o.stage<4?'<div class="mu">Moves to the next step every few seconds in demo mode.</div>':''}</div>`}
+function store(){const sid=S.store,s=ST[sid],ps=P.filter(p=>p.s==sid).sort((a,b)=>calculateStockConfidence(a)-calculateStockConfidence(b)),tk=S.tasks.filter(t=>P[t.pid].s==sid),
+os=S.orders.filter(o=>o.s==sid),avg=Math.round(ps.reduce((a,p)=>a+calculateStockConfidence(p),0)/ps.length),risky=ps.filter(p=>calculateStockConfidence(p)<70&&!p.u).length,
+sales=os.reduce((a,o)=>a+o.items.reduce((b,i)=>b+P[i.pid].p*i.qty,0),0),ready=cl(Math.round(avg*.7+cl(100-tk.length*15)*.3));
+return `<h2>Partner store console</h2><div class="r"><select onchange="S.store=+this.value;render()">${ST.map((x,i)=>`<option value="${i}" ${i==sid?'selected':''}>${x.n} (${x.c})</option>`).join('')}</select><button class="${s.busy?'p':''}" onclick="ST[${sid}].busy=!ST[${sid}].busy;save();render();toast(ST[${sid}].busy?'Busy Mode on: ETA +10 min, risky items paused':'Busy Mode off')">Busy Mode: ${s.busy?'ON':'OFF'}</button></div>
+<div class="mu" style="margin:6px 0">${risky} product${risky==1?'':'s'} need confirmation today.${s.busy?' Busy Mode pauses low-confidence items and adds 10 min to ETA so you are not forced to reject orders.':''}</div>
+<div class="g"><div class="k"><b>${os.length}</b>Today's orders</div><div class="k"><b>${avg}%</b>Inventory confidence</div><div class="k"><b>${risky}</b>Risky products</div><div class="k"><b>${tk.length}</b>Pending confirmations</div><div class="k"><b>${s.rej}%</b>Rejected orders</div><div class="k"><b>${ready}</b>Store readiness</div><div class="k"><b>${R(sales)}</b>Est. online sales</div></div>
+${tk.length?'<h2>Pending confirmations</h2>'+tk.map(t=>`<div class="c pop r"><span><b>${t.oid}</b> · ${P[t.pid].n}<div class="mu">Customer is waiting for you to confirm this item</div></span><span><button class="p" onclick="confirmInventory(${t.pid})">Confirm available</button> <button onclick="markUnavailable(${t.pid})">Mark unavailable</button></span></div>`).join(''):''}
+<h2>Products, riskiest first</h2>`+ps.map(p=>{const c=calculateStockConfidence(p),st=status(c),n=os.filter(o=>o.items.some(i=>i.pid==p.id)).length;
+return `<div class="c" style="${p.sn?'opacity:.5':''}"><div class="r"><b>${p.n}</b><span class="tg ${st[1]}">${p.u?'UNAVAILABLE':c+'% · '+st[0]}</span></div>${conf(c)}<div class="mu">Recent searches ${(p.id*7)%23+3} · recent orders ${n} · last update ${p.h}h ago · qty ${p.q}</div><div class="r" style="justify-content:flex-start;margin-top:6px"><button class="p" onclick="confirmInventory(${p.id})">Confirm available</button><button onclick="markUnavailable(${p.id})">Mark unavailable</button><button onclick="P[${p.id}].q+=10;updateInventoryConfidence(${p.id},95,0);save();toast('Quantity updated. Inventory confidence refreshed.');render()">+10 qty</button><button onclick="P[${p.id}].sn=${p.sn?0:1};render();toast('${p.sn?'Unsnoozed':'Snoozed for today'}')">${p.sn?'Unsnooze':'Snooze'}</button></div></div>`}).join('')}
+function ops(){const act=S.orders.filter(o=>o.stage>=0&&o.stage<4),K=act.map(o=>({o,k:calculateOrderRisk(o)})),q=K.filter(x=>x.k.level!='Low'&&!x.o.res).sort((a,b)=>a.k.sc-b.k.sc),
+canc=S.orders.filter(o=>o.stage<0).length,cnt=t=>K.filter(x=>x.k.types.includes(t)).length,rr=Math.round(ST.reduce((a,s)=>a+s.rej,0)/ST.length);
+return `<h2>Operations control tower</h2><div class="g"><div class="k"><b>${S.orders.length}</b>Orders today</div><div class="k"><b>${Math.round(canc/S.orders.length*100)}%</b>Cancellation (sample)</div><div class="k"><b>${cnt('Inventory risk')}</b>Inventory-risk orders</div><div class="k"><b>${cnt('ETA risk')}</b>ETA-risk orders</div><div class="k"><b>${rr}%</b>Store rejection rate</div><div class="k"><b>${cnt('Refund risk')}</b>Refund cases</div><div class="k"><b>~197</b>Support tickets/day</div></div>
+<h2>Risk queue (${q.length})</h2>`+(q.length?q.map(({o,k})=>{const r=recommend(o);return `<div class="c"><div class="r"><b>ORDER #${o.id}</b><span class="tg ${k.level=='High'?'bad':'mid'}">${k.level} risk · ${k.sc}/100</span></div><div class="mu">${o.cust} · ${ST[o.s].n} · ${STG[o.stage]} · inventory confidence ${k.lo}%</div><div>${k.types.map(t=>`<span class="tg mid">${t}</span>`).join(' ')}</div><div style="margin:6px 0"><b>Recommended action:</b> ${r.a}</div><details class="mu"><summary>Why this recommendation?</summary>${r.w}</details>
+<div class="r" style="justify-content:flex-start;margin-top:6px"><button class="p" onclick="confirmInventory(${o.items.reduce((m,i)=>calculateStockConfidence(P[i.pid])<calculateStockConfidence(P[m])?i.pid:m,o.items[0].pid)})">Confirm</button><button onclick="rerouteOrder('${o.id}')">Reroute</button><button onclick="toast('Message sent to ${o.cust} (demo)')">Contact customer</button><button onclick="resolveRisk('${o.id}')">Resolve</button></div></div>`}).join(''):'<div class="c mu">No open risks. Every active order passes the reliability check.</div>')}
+function impact(){return `<h2>Evidence driving the product</h2><div class="c"><ul><li>Repeat purchase: 41% → 27%</li><li>Product unavailable = 35% of cancellations</li><li>29% of customers experienced availability problems</li><li>39% of stores struggle with inventory maintenance</li><li>Support tickets: 3,100 → 5,900</li><li>Customers reaching 3 orders: 72% next-month repeat probability</li></ul></div>
+<div class="c"><b>Story:</b> Reliability is deteriorating → growth is not turning into repeat usage → customers and stores lack reliable stock information → <b>Local Reliability OS</b> detects risk, intervenes, and completes the order → fewer cancellations and tickets, better retention.</div>
+<h2>Six months: before and after</h2><div class="c" style="overflow-x:auto"><table><tr><th>Metric</th><th>6 months ago</th><th>Now</th></tr><tr><td>Repeat purchase</td><td>41%</td><td>27%</td></tr><tr><td>Cancellation</td><td>6%</td><td>11%</td></tr><tr><td>Delivery time</td><td>29 min</td><td>37 min</td></tr><tr><td>Support tickets</td><td>3,100</td><td>5,900</td></tr><tr><td>Promotional spend</td><td>₹9.5L</td><td>₹17L</td></tr></table></div>
+<h2>Scenario calculator</h2><div class="c"><div class="g"><label class="mu">Monthly orders<input id="a1" type="number" value="38500" oninput="calc()"></label><label class="mu">Current cancellation %<input id="a2" type="number" value="11" oninput="calc()"></label><label class="mu">Target cancellation %<input id="a3" type="number" value="7" oninput="calc()"></label><label class="mu">AOV (₹)<input id="a4" type="number" value="486" oninput="calc()"></label></div>
+<div class="g" style="margin-top:10px"><div class="k"><b id="o1"></b>Recovered orders / month</div><div class="k"><b id="o2"></b>Added gross order value / month</div></div><div class="mu" style="margin-top:6px">Illustrative scenario — not a financial forecast.</div></div>`}
+function calc(){const v=i=>+document.getElementById(i).value||0,r=calculateRecoveredOrders(v('a1'),v('a2'),v('a3'));document.getElementById('o1').textContent=Math.round(r).toLocaleString('en-IN');document.getElementById('o2').textContent=R(calculateRecoveredOrderValue(r,v('a4')))}
+function render(){const T={cust:'Customer',store:'Store',ops:'Operations',imp:'Impact'};
+document.getElementById('nv').innerHTML=Object.entries(T).map(([k,v])=>`<button class="${S.tab==k?'on':''}" onclick="S.tab='${k}';render();scrollTo(0,0)">${v}${k=='store'&&S.tasks.length?' ('+S.tasks.length+')':''}</button>`).join('');
+document.getElementById('app').innerHTML=({cust,store,ops,imp:impact}[S.tab])();if(S.tab=='imp')calc()}
+render();
+</script></body></html>
